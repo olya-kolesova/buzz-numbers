@@ -23,8 +23,10 @@ public class Main {
             num = scanner.nextDouble();
 
 
-            if (num % 1 != 0 || num < 0 || num == 0) {
+            if (num % 1 != 0 || num < 0) {
                 System.out.println("This number is not natural!");
+            } else if (num == 0) {
+                break;
             } else {
                 int numInt = num.intValue();
                 if (numInt % 2 == 0) {
@@ -54,6 +56,9 @@ public class Main {
                         break;
                     }
                 }
+
+
+
                 System.out.printf("Properties of %d%n even: %b%n odd: %b%n buzz: %b%n duck: %b%n", numInt, even, odd, buzz, duck);
             }
 
