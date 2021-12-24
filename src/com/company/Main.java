@@ -10,7 +10,7 @@ public class Main {
         boolean odd = false;
         boolean buzz = false;
         boolean duck = false;
-        double num = 1.0;
+        Double num = 0.1;
 
         do {
             System.out.printf(
@@ -58,6 +58,6 @@ public class Main {
             }
 
         } while (num != 0);
-
+        System.out.println("Goodbye!");
     }
 }
