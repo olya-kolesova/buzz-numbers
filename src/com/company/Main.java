@@ -1,4 +1,5 @@
 package com.company;
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Main {
@@ -10,6 +11,7 @@ public class Main {
         boolean odd = false;
         boolean buzz = false;
         boolean duck = false;
+        boolean palindromic = false;
         Double num = 0.1;
 
         do {
@@ -56,10 +58,22 @@ public class Main {
                         break;
                     }
                 }
+                char[] directArray = numStr.toCharArray();
+                System.out.println(directArray);
+                char[] reverseArray = new char[numStr.length()];
+                for (int i = 0; i <=  numStr.length() - 1; i++) {
+                    reverseArray[i] = numStr.charAt(numStr.length() - i - 1);
+                    System.out.println(reverseArray);
+                }
+                String reverseStr = String.valueOf(reverseArray);
+                System.out.println(reverseStr);
+                System.out.println(numStr);
 
+                if (directArray == reverseArray) {
+                    palindromic = true;
+                }
 
-
-                System.out.printf("Properties of %d%n even: %b%n odd: %b%n buzz: %b%n duck: %b%n", numInt, even, odd, buzz, duck);
+                System.out.printf("Properties of %d%n even: %b%n odd: %b%n buzz: %b%n duck: %b%n palindromic: %b%n", numInt, even, odd, buzz, duck, palindromic);
             }
 
         } while (num != 0);
