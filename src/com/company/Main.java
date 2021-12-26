@@ -35,15 +35,14 @@ public class Main {
             } else if (num == 0) {
                 break;
             } else {
-                long numLong = (long) num;
-                if (numLong % 2 == 0) {
+                if (num % 2 == 0) {
                     even = true;
                 } else {
                     odd = true;
                 }
 
-                String numStr = String.valueOf(numLong);
-                if (numStr.charAt(numStr.length() - 1) == '7' || numLong % 7 == 0) {
+                String numStr = String.valueOf(num);
+                if (numStr.charAt(numStr.length() - 1) == '7' || num % 7 == 0) {
                     buzz = true;
                     //                if (numStr.charAt(numStr.length() - 1) == '7' && numInt % 7 == 0) {
                     //                    String output = String.format("%d is divisible by 7 and ends with 7.", numInt);
@@ -69,12 +68,12 @@ public class Main {
                     reverseArray[i] = numStr.charAt(numStr.length() - i - 1);
                 }
                 String reverseStr = String.valueOf(reverseArray);
-                long numReverse = Long.parseLong(reverseStr, 10);
-                if (numReverse == numLong) {
+                double numReverse = Double.parseDouble(reverseStr);
+                if (numReverse == num) {
                     palindromic = true;
                 }
 
-                System.out.printf("Properties of %d%n even: %b%n odd: %b%n buzz: %b%n duck: %b%n palindromic: %b%n", numLong, even, odd, buzz, duck, palindromic);
+                System.out.printf("Properties of %d%n even: %b%n odd: %b%n buzz: %b%n duck: %b%n palindromic: %b%n", num, even, odd, buzz, duck, palindromic);
             }
 
         } while (num != 0);
