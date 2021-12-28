@@ -18,7 +18,7 @@ public class Main {
         boolean buzz = false;
         boolean duck = false;
         boolean palindromic = false;
-        double num = 0.1;
+        long num = 1;
 
         do {
             even = false;
@@ -27,7 +27,7 @@ public class Main {
             duck = false;
             palindromic = false;
             System.out.println("Enter a request: > ");
-            num = scanner.nextDouble();
+            num = scanner.nextLong();
 
 
             if (num % 1 != 0 || num < 0) {
@@ -68,7 +68,9 @@ public class Main {
                     reverseArray[i] = numStr.charAt(numStr.length() - i - 1);
                 }
                 String reverseStr = String.valueOf(reverseArray);
-                double numReverse = Double.parseDouble(reverseStr);
+
+                long numReverse = Long.parseLong(reverseStr, 10);
+
                 if (numReverse == num) {
                     palindromic = true;
                 }
