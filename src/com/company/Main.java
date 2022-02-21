@@ -1,84 +1,83 @@
 package com.company;
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-	    System.out.printf("Welcome to Amazing Numbers!%n%n");
-
-        System.out.printf(
-                "Supported requests:%n"+
-                        "- enter a natural number to know its properties;%n"+
-                        "- enter 0 to exit.%n%n"
-        );
         boolean even = false;
         boolean odd = false;
         boolean buzz = false;
         boolean duck = false;
         boolean palindromic = false;
-        long num = 1;
+        boolean gapful = false;
+        static Long number;
+        static Integer len;
+
+    public static void main(String[] args) {
+        System.out.printf(
+                "Supported requests:%n"+
+                        "- enter a natural number to know its properties;%n"+
+                        "- enter two natural numbers to obtain the properties of the list:%n"+
+                        "   * the first parameter represents a starting number;%n"+
+                        "   * the second parameter shows how many consecutive numbers are to be printed;%n"+
+                        "- separate the parameters with one space;%n"+
+                        "- enter 0 to exit.%n%n"
+        );
+
+        Scanner scanner = new Scanner(System.in);
+	    System.out.printf("Welcome to Amazing Numbers!%n%n");
+
 
         do {
-            even = false;
-            odd = false;
-            buzz = false;
-            duck = false;
-            palindromic = false;
+            boolean even = false;
+            boolean odd = false;
+            boolean buzz = false;
+            boolean duck = false;
+            boolean palindromic = false;
+            boolean gapful = false;
+
             System.out.println("Enter a request: > ");
-            num = scanner.nextLong();
 
+            String input = scanner.nextLine();
 
-            if (num % 1 != 0 || num < 0) {
-                System.out.println("The first parameter should be a natural number or zero.");
-            } else if (num == 0) {
-                break;
-            } else {
-                if (num % 2 == 0) {
-                    even = true;
-                } else {
-                    odd = true;
-                }
+            Classifier classifier = new Classifier();
 
-                String numStr = String.valueOf(num);
-                if (numStr.charAt(numStr.length() - 1) == '7' || num % 7 == 0) {
-                    buzz = true;
-                    //                if (numStr.charAt(numStr.length() - 1) == '7' && numInt % 7 == 0) {
-                    //                    String output = String.format("%d is divisible by 7 and ends with 7.", numInt);
-                    //                    System.out.println(output);
-                    //                } else if (numStr.charAt(numStr.length() - 1) == '7') {
-                    //                    String output = String.format("%d ends with 7.", numInt);
-                    //                    System.out.println(output);
-                    //                } else {
-                    //                    String output = String.format("%d is divisible by 7.", numInt);
-                    //                    System.out.println(output);
-                    //                }
-                }
+            ArrayList<String[]> properties = new ArrayList<>();
+            if (input.contains(" ")) {
+                String[] nums = input.split(" ");
+                number = Long.valueOf(nums[0]);
+                len = Integer.valueOf(nums[1]);
+                ArrayList<Long> numbers = new ArrayList<>(len);
+                Long seqNum;
 
-                for (int i = 1; i <= numStr.length() - 1; i++) {
-                    if (numStr.charAt(i) == '0') {
-                        duck = true;
-                        break;
+                String result = "";
+                for (int i = 0; i < len; i++) {
+                    seqNum = number + i;
+                    numbers.add(seqNum);
+                    properties = classifier.classify(seqNum);
+                    String reducedProps = "";
+                    for (String[] value : properties) {
+                        if (value[1] == "true") {
+                            reducedProps += value[0] + ", ";
+                        }
                     }
+                    String subReducedProps = reducedProps.substring(0, reducedProps.length() - 2);
+                    System.out.println(seqNum + " is " + subReducedProps);
                 }
 
-                char[] reverseArray = new char[numStr.length()];
-                for (int i = 0; i <=  numStr.length() - 1; i++) {
-                    reverseArray[i] = numStr.charAt(numStr.length() - i - 1);
+            } else {
+                number = Long.valueOf(input);
+                properties = classifier.classify(number);
+                System.out.println("Properties of " + input);
+                for (String[] value : properties) {
+                    System.out.println(value[0] + ": " + value[1]);
                 }
-                String reverseStr = String.valueOf(reverseArray);
-
-                long numReverse = Long.parseLong(reverseStr, 10);
-
-                if (numReverse == num) {
-                    palindromic = true;
-                }
-
-                System.out.printf("Properties of %d%n even: %b%n odd: %b%n buzz: %b%n duck: %b%n palindromic: %b%n", num, even, odd, buzz, duck, palindromic);
+//                System.out.printf("Properties of %d%n even: %b%n odd: %b%n", number, properties.get(0)[0], properties.get(1)[1]);
+////                        buzz: %b%n duck: %b%n palindromic: %b%n, properties.get(2)[1], properties.get(3)[1], properties.get(4)[1]);
             }
 
-        } while (num != 0);
+
+        } while (number != 0);
         System.out.println("Goodbye!");
     }
 }
